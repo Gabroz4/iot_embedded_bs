@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/smart-room.ino.hex'
+elf = 'build/smart-room.ino.elf'

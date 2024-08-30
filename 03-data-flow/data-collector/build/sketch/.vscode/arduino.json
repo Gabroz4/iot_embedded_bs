@@ -1,0 +1,7 @@
+#line 1 "C:\\Users\\gabri\\Desktop\\Laptop-to-pc\\secondo_semestre\\iot\\03-data-flow\\data-collector\\.vscode\\arduino.json"
+{
+    "sketch": "data-collector.ino",
+    "board": "arduino:avr:uno",
+    "output": "build",
+    "port": "COM3"
+}

@@ -1,0 +1,45 @@
+
+@startuml smart-door
+
+hide empty description
+
+state "Active" as active{
+    state "DoorTask (period 500ms)" as door {
+        ' il tick sarà il massimo comune divisore fra questo period e l'altro (in questo caso 500ms)
+        [*] --> Closed
+        Closed --> Opening: presence < 50cm
+        Opening --> Opened: opened
+        ' Stato --> ad altro stato: condizione
+        ' bisogna considerare ogni passaggio di stato
+        Opened --> Closing: after 30 seconds
+        Closing --> Closed: closed
+    }
+    --
+    state "ClimaTask (period 1s)" as clima {
+        [*] --> Idle
+
+        Idle --> Heating_half: [temp < 18]
+        Heating_half --> Idle: [temp > 20]
+
+        Heating_half --> Heating_full: [temp < 15]
+        Heating_full --> Heating_half: [temp > 17]
+
+        Idle --> Cooling_half: [temp > 28]
+        Cooling_half --> Idle: [temp < 26]
+
+        Cooling_half --> Cooling_full: [temp > 32]
+        Cooling_full --> Cooling_half: [temp < 29]
+    }
+    ---
+    state "SmartLightTask (period 100ms)" as smartlight {
+        [*] --> Automatic
+
+        Automatic --> Manual: [input == 'm']
+        Manual --> Automatic: [input == 'a']
+    }
+}
+
+
+[*] --> active
+
+@enduml
